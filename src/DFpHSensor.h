@@ -18,7 +18,7 @@
 
 class DFpHSensor : public GenericAnalogInput {
 	public:
-		DFpHSensor(int Pin = A0, String ConfigFile = "DFpH.json");
+		DFpHSensor(int Pin = 36, String ConfigFile = "DFpH.json");
 		bool begin();
 		bool takeMeasurement();
 		
