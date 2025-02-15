@@ -1,0 +1,50 @@
+{
+	"name": "Fabrica-IO Sensor DF pH Sensor",
+	"version": "0.5.0",
+	"description": "DF Robot water pH electrode",
+	"keywords": "Fabrica-IO, sensor, pH, water",
+	"repository":
+	{
+	  "type": "git",
+	  "url": "https://https://github.com/FabricaIO/sensor-DFpHSensor.git"
+	},
+	"authors":
+	[
+	  {
+		"name": "Sam Groveman",
+		"email": "SamGroveman@outlook.com",
+		"url": "https://github.com/FabricaIO"
+	  }
+	],
+	"dependencies": {
+		"Generic Analog Input": "https://github.com/FabricaIO/sensor-GenericAnalogInput.git",
+		"DFRobot_ESP_PH": "https://github.com/GreenPonik/DFRobot_ESP_PH_BY_GREENPONIK"
+	  },
+	"license": "GPLv3",
+	"homepage": "https://github.com/FabricaIO",
+	"frameworks": "arduino",
+	"platforms": "*",
+	"fabrica-io" : {
+		"name": "pHSensor",
+		"type": 0,
+		"category": "Environment Sensor",
+		"libname": "DFpHSensor",
+		"includes": ["DFpHSensor"],
+		"description": "DF Robot water pH electrode",
+		"constructor":
+		[
+			{
+				"name": "Pin",
+				"type": "int*",
+				"description": "The pin to use",
+				"default": "36"
+			},
+			{
+				"name": "ConfigFile",
+				"type": "String",
+				"description": "The name of the config file to use",
+				"default": "DFpH.json"
+			}
+		]
+	}
+  }
