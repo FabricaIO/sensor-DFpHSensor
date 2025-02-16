@@ -17,7 +17,7 @@
 	  }
 	],
 	"dependencies": {
-		"Generic Analog Input": "https://github.com/FabricaIO/sensor-GenericAnalogInput.git",
+		"GenericAnalogInput": "https://github.com/FabricaIO/sensor-GenericAnalogInput.git",
 		"DFRobot_ESP_PH": "https://github.com/GreenPonik/DFRobot_ESP_PH_BY_GREENPONIK"
 	  },
 	"license": "GPLv3",
