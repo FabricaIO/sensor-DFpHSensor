@@ -1,16 +1,16 @@
 #include "DFpHSensor.h"
 
 /// @brief Creates a soil moisture sensor
+/// @param Name The device name
 /// @param Pin The analog pin to use
 /// @param ConfigFile The name of the configuration file to use
-DFpHSensor::DFpHSensor(int Pin, String ConfigFile) : GenericAnalogInput(Pin, ConfigFile) {}
+DFpHSensor::DFpHSensor(String Name, int Pin, String ConfigFile) : GenericAnalogInput(Name, Pin, ConfigFile) {}
 
 /// @brief Starts a Data Template object
 /// @return True on success
 bool DFpHSensor::begin() {
 	Description.parameterQuantity = 1;
 	Description.type = "Water Sensor";
-	Description.name = "pH Sensor";
 	Description.parameters = {"pH"};
 	Description.units = {"pH"};
 	values.resize(Description.parameterQuantity);
