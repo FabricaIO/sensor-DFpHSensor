@@ -33,18 +33,20 @@
 		"description": "DF Robot water pH electrode",
 		"constructor":
 		[
-			{
-				"name": "Pin",
-				"type": "int*",
-				"description": "The pin to use",
-				"default": "36"
-			},
-			{
-				"name": "ConfigFile",
-				"type": "String",
-				"description": "The name of the config file to use",
-				"default": "DFpH.json"
-			}
+			[
+				{
+					"name": "Pin",
+					"type": "int*",
+					"description": "The pin to use",
+					"default": "36"
+				},
+				{
+					"name": "ConfigFile",
+					"type": "String",
+					"description": "The name of the config file to use",
+					"default": "DFpH.json"
+				}
+			]
 		]
 	}
   }
