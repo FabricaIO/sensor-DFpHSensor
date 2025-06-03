@@ -1,2 +1,2 @@
 # sensor-DFpHSensor
- DF Robot pH Snsor for Fabrica-IO
+ DF Robot pH Sensor for Fabrica-IO
