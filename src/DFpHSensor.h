@@ -3,7 +3,8 @@
  * 
  * External libraries needed:
  * ArduinoJSON: https://arduinojson.org/
- * DFRobot_ESP_PH: https://github.com/GreenPonik/DFRobot_ESP_PH_BY_GREENPONIK
+ * 
+ * Based off of DFRobot_ESP_PH: https://github.com/GreenPonik/DFRobot_ESP_PH_BY_GREENPONIK
  *
  * pH Sensor: https://www.dfrobot.com/product-2069.html
  *
@@ -14,15 +15,27 @@
 #include <GenericAnalogInput.h>
 #include <Storage.h>
 #include <ArduinoJson.h>
-#include <DFRobot_ESP_PH.h>
 
 class DFpHSensor : public GenericAnalogInput {
 	public:
+		/// @brief Settings for pH sensor
+		struct {
+			/// @brief Slope of calibration curve
+			float slope = -0.0169033130494;
+
+			/// @brief Y-intercept of calibration curve
+			float intercept = 7.0;
+		
+		} ph_config;
+
 		DFpHSensor(String Name, int Pin = 36, String ConfigFile = "DFpH.json");
 		bool begin();
 		bool takeMeasurement();
-		
+		String getConfig();
+		bool setConfig(String config, bool save);
+		std::tuple<Sensor::calibration_response, String> calibrate(int step);
+
 	protected:
-		/// @brief pH probe
-		DFRobot_ESP_PH ph;
+		float getPHValue(int voltage);
+		JsonDocument addAdditionalConfig();
 };
