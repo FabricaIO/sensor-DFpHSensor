@@ -83,7 +83,7 @@ std::tuple<Sensor::calibration_response, String> DFpHSensor::calibrate(int step)
 	int acidVoltage = 2032.44;
 	switch (step) {
 		case 0:
-			response = { Sensor::calibration_response::next, "Place sensor in pH 4.0 solution and wait for it to stabilize." };
+			response = { Sensor::calibration_response::NEXT, "Place sensor in pH 4.0 solution and wait for it to stabilize." };
 			break;
 		case 1:
 			acidVoltage = analogToMV(getAnalogValue(false));
@@ -91,7 +91,7 @@ std::tuple<Sensor::calibration_response, String> DFpHSensor::calibrate(int step)
                 acidVoltage += analogToMV(getAnalogValue(false));
             }
 			acidVoltage /= 10;
-			response = { Sensor::calibration_response::next, "Place sensor in pH 7.0 and wait for it to stabilize." };
+			response = { Sensor::calibration_response::NEXT, "Place sensor in pH 7.0 and wait for it to stabilize." };
 			break;
 		case 2:
 			neutralVoltage = analogToMV(getAnalogValue(false));
@@ -101,10 +101,10 @@ std::tuple<Sensor::calibration_response, String> DFpHSensor::calibrate(int step)
 			neutralVoltage /= 10;
     		ph_config.slope = (7.0 - 4.0) / ((neutralVoltage - 1500.0) / 3.0 - (acidVoltage - 1500.0) / 3.0);
    			ph_config.intercept = 7.0 - ph_config.slope * (neutralVoltage - 1500.0) / 3.0;
-			response = { Sensor::calibration_response::done, "Calibration complete." };
+			response = { Sensor::calibration_response::DONE, "Calibration complete." };
 			break;
 		default:
-		response = { Sensor::calibration_response::error, "No such calibration step: " + String(step) };
+		response = { Sensor::calibration_response::ERROR, "No such calibration step: " + String(step) };
 		break;
 	}
 	return response;
