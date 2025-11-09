@@ -28,7 +28,7 @@ bool DFpHSensor::begin() {
 /// @brief Takes a measurement
 /// @return True on success
 bool DFpHSensor::takeMeasurement() {
-	int ph_voltage = analogToMV(getAnalogValue(analog_config.RollingAverage));
+	int ph_voltage = getMVValue();
 	values[0] = getPHValue(ph_voltage);
 	return true;
 }
@@ -81,22 +81,25 @@ std::tuple<Sensor::calibration_response, String> DFpHSensor::calibrate(int step)
 	std::tuple<Sensor::calibration_response, String> response;
 	int neutralVoltage = 1500;
 	int acidVoltage = 2032.44;
+	// Disable averaging for calibration
+	bool average = analog_config.RollingAverage;
+	analog_config.RollingAverage = false;
 	switch (step) {
 		case 0:
 			response = { Sensor::calibration_response::NEXT, "Place sensor in pH 4.0 solution and wait for it to stabilize." };
 			break;
 		case 1:
-			acidVoltage = analogToMV(getAnalogValue(false));
+			acidVoltage = getMVValue();
 			for (int i = 0; i < 9; i++) {
-                acidVoltage += analogToMV(getAnalogValue(false));
+                acidVoltage += getMVValue();
             }
 			acidVoltage /= 10;
 			response = { Sensor::calibration_response::NEXT, "Place sensor in pH 7.0 and wait for it to stabilize." };
 			break;
 		case 2:
-			neutralVoltage = analogToMV(getAnalogValue(false));
+			neutralVoltage = getMVValue();
 			for (int i = 0; i < 9; i++) {
-                neutralVoltage += analogToMV(getAnalogValue(false));
+                neutralVoltage += getMVValue();
             }
 			neutralVoltage /= 10;
     		ph_config.slope = (7.0 - 4.0) / ((neutralVoltage - 1500.0) / 3.0 - (acidVoltage - 1500.0) / 3.0);
@@ -107,6 +110,8 @@ std::tuple<Sensor::calibration_response, String> DFpHSensor::calibrate(int step)
 		response = { Sensor::calibration_response::ERROR, "No such calibration step: " + String(step) };
 		break;
 	}
+	// Re-enable averaging if needed
+	analog_config.RollingAverage = average;
 	return response;
 }
 
