@@ -107,8 +107,8 @@ std::tuple<Sensor::calibration_response, String> DFpHSensor::calibrate(int step)
 			response = { Sensor::calibration_response::DONE, "Calibration complete." };
 			break;
 		default:
-		response = { Sensor::calibration_response::ERROR, "No such calibration step: " + String(step) };
-		break;
+			response = { Sensor::calibration_response::ERROR, "No such calibration step: " + String(step) };
+			break;
 	}
 	// Re-enable averaging if needed
 	analog_config.RollingAverage = average;
