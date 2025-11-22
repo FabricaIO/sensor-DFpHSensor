@@ -16,6 +16,7 @@
 #include <Storage.h>
 #include <ArduinoJson.h>
 
+/// @brief Device for interfacing with the DF Robot analog pH electrode
 class DFpHSensor : public GenericAnalogInput {
 	public:
 		/// @brief Settings for pH sensor
